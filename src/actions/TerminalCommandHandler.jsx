@@ -32,6 +32,11 @@ export function commandHandler(command, setCommand) {
 
     const typedCommand = avilableCommand.find(c => c.cmnd === command);
     if (typedCommand && typedCommand.cmnd !== 'clear') setCommand((prevState) => [...prevState, { __html: typedCommand.msg }]);
-    else setCommand([]);
+    else if (typedCommand && typedCommand.cmnd === 'clear') setCommand([]);
+    else setCommand(prevState => [...prevState, {
+        __html: `
+                * not verfied command <span class="marked">${command}</span> !<br />
+                * to see valid commands type 'help'
+     `}])
     return
 }
